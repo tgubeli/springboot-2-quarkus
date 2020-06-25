@@ -240,7 +240,7 @@ In Grafana web console (you must login first with your Openshift account) go to 
 Then filter for namespace and you should see all the pods metrics.
 
 For this example, we create a test plan who send 5 request per second. 
-Lop count is: 1000 (1000 times 5 request per second)
+The Loop count is: 1000 (so there is 1000 cycles of 5 request per second each)
 
 **Metrics**
 

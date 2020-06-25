@@ -1,6 +1,9 @@
 # Installing GraalVM (easy way)
 
-I've a Mac so installing GraalVM in my case wasn't just straightforward. So I found a easy and painful way to do it. SDK Man!
+I've a Mac so installing GraalVM in my case wasn't just straightforward. So I found a easy and painful way to do it with SDK Man! 
+This method is valid for Windows and Linux users to.
+
+
 
 1. First install sdkman:
 [https://sdkman.io/install](https://sdkman.io/install)

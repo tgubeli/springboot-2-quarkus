@@ -123,14 +123,14 @@ Here we can see that the same Quarkus app but compile as Native take 0.021 secon
 
 Let's try now to deploy this apps in Openshift environment.
 
-6. Deploying to Openshift
+## Deploying to Openshift
 
-#### Import the Red Hat Quarkus s2i UBI Image
+1. Import the Red Hat Quarkus s2i UBI Image
 ```
 oc import-image quay.io/quarkus/ubi-quarkus-native-s2i:20.1.0-java11 --confirm
 ```
 
-#### Deploy the SpringBoot App in Openshift
+2. Deploy the SpringBoot App in Openshift
 oc new-build --name accountbalance-springboot --binary --strategy source --image-stream java:11
 oc start-build accountbalance-springboot  --from-dir=./accountbalance
 oc new-app accountbalance-springboot \
@@ -141,7 +141,7 @@ oc new-app accountbalance-springboot \
     -e MONGODB_PASSWORD=accountbalance \
     -e MONGODB_DATABASE=accountbalance
 
-#### Deploy the Quarkus App (native image) in Openshift
+3. Deploy the Quarkus App (native image) in Openshift
 oc new-build --name accountbalance-quarkus --binary --strategy source --image-stream=ubi-quarkus-native-s2i:20.1.0-java11
 oc start-build accountbalance-quarkus --from-dir=./accountbalance-quarkus \
 --name=accountbalance-quarkus
@@ -153,11 +153,11 @@ oc new-app quarkus-demo/accountbalance-quarkus:latest \
     -e MONGODB_PASSWORD= accountbalance \
     -e MONGODB_DATABASE= accountbalance
 
-Expose the services:
+4. Expose the services:
 oc expose svc/springboot-2-quarkus --name=accountbalance-quarkus
 oc expose svc/accountbalance-springboot --name=accountbalance-springboot
 
-Add some labels:
+5. Add some labels:
 oc label dc/accountbalance app.openshift.io/runtime=mongodb --overwrite
 oc label dc/accountbalance-springboot  app.openshift.io/runtime=spring-boot --overwrite
 oc label dc/accountbalance-quarkus app.openshift.io/runtime=quarkus —overwrite
@@ -166,3 +166,64 @@ Go to the Openshift's Web Console > Developer View > Topology
 
 You should see your apps deployed like this:
 ![Apps deployed](img/apps.png)
+
+
+## Playing with the apps
+1. Endpoints
+
+We will use $BASE_URL as the base url exposed in Openshift for the quarkus and springboot app.
+
+```
+curl -H "Content-Type: application/json" -X POST $BASE_URL/ws/pg/balance -d '{"accountId": "20191108-MY-00000001", "balance": 500.00, "lastUpdatedDate": 1563178274158 }'
+curl -H "Content-Type: application/json" -X POST $BASE_URL/ws/pg/balance -d '{"accountId": "20191108-MY-00000002", "balance": 700.00, "lastUpdatedDate": 1563178274158 }'
+```
+
+Get all the balances:
+```
+curl $BASE_URL/ws/pg/balance/all
+```
+
+2. Load Test
+You can create a more sofisticated test plan with JMeter. Jus install JMeter and open the file [springboot2quarkus.jmx](./springboot2quarkus.jmx)
+
+Then you jus need to change the base url in the HTTP Request section named "Quarkus" and "SprinBoot".
+
+3. Monitoring with Openshift
+
+You can view metrics about CPU and Memory (networking too) with Grafana.
+Just go to Openshift's web console > Monitoring > Dashboards > Clic over "Grafana UI" link.
+
+In Grafana web console (you must login first with your Openshift account) go to the Dashboard named "Kubernetes / Compute Resources / Namespace (Pods)"
+
+Then filter for namespace and you should see all the pods metrics.
+
+For this example, we create a test plan who send 5 request per second. 
+Lop count is: 1000 (1000 times 5 request per second)
+
+**Metrics**
+
+<table>
+	<tr>
+		<td>App Name</td>
+		<td>Memory used (MiB)</td>
+		<td>CPU Request Peaks (millicores)</td>
+	</tr>
+	<tr>
+		<td>SpringBoot app</td>
+		<td>513.89</td>
+		<td>0.03597</td>
+	</tr>
+	<tr>
+		<td>Quarkus app</td>
+		<td>262.04</td>
+		<td>0.00583</td>
+	</tr>
+</table>
+
+* Memory
+![](img/grafana-01.png)
+
+* CPU
+![](img/grafana-03.png)
+![](img/grafana-04.png)
+

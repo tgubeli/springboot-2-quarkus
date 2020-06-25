@@ -221,9 +221,12 @@ Lop count is: 1000 (1000 times 5 request per second)
 </table>
 
 * Memory
+
 ![](img/grafana-01.png)
 
 * CPU
+
 ![](img/grafana-03.png)
+
 ![](img/grafana-04.png)
 

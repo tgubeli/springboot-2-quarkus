@@ -46,7 +46,7 @@ gu install native-image
 
 
 
-That's all. We are ready to compile Quarkus app in a native way with GraalVM doing:
+That's all. Now we are ready to compile Quarkus apps in a native way with GraalVM doing:
 
 ```
 mvn package -Pnative

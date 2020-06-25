@@ -181,9 +181,17 @@ oc expose svc/springboot-2-quarkus --name=accountbalance-quarkus
 oc expose svc/accountbalance-springboot --name=accountbalance-springboot
 
 5. Add some labels:
+
+```
 oc label dc/accountbalance app.openshift.io/runtime=mongodb --overwrite
 oc label dc/accountbalance-springboot  app.openshift.io/runtime=spring-boot --overwrite
-oc label dc/accountbalance-quarkus app.openshift.io/runtime=quarkus —overwrite
+oc label dc/accountbalance-quarkus app.openshift.io/runtime=quarkus --overwrite
+oc annotate dc/accountbalance-springboot app.openshift.io/connects-to=accountbalance
+oc annotate dc/accountbalance-quarkus app.openshift.io/connects-to=accountbalance
+oc label dc/accountbalance-springboot app.kubernetes.io/part-of=blackjack --overwrite
+oc label dc/accountbalance app.kubernetes.io/part-of=blackjack --overwrite
+oc label dc/accountbalance-quarkus app.kubernetes.io/part-of=blackjack --overwrite
+```
 
 Go to the Openshift's Web Console > Developer View > Topology
 
@@ -202,6 +210,7 @@ curl -H "Content-Type: application/json" -X POST $BASE_URL/ws/pg/balance -d '{"a
 ```
 
 Get all the balances:
+
 ```
 curl $BASE_URL/ws/pg/balance/all
 ```

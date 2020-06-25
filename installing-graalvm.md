@@ -1,4 +1,4 @@
-# Installing GraalVM easy way
+# Installing GraalVM (easy way)
 
 I've a Mac so installing GraalVM in my case wasn't just straightforward. So I found a easy and painful way to do it. SDK Man!
 
@@ -33,7 +33,7 @@ Next we need to select the GraalVM as default java version
 sdk use java 20.1.0.r11
 ```
 
-Then we need to install the native packages for GraalVM (in order to compile quearkus apps in a native way)
+Then we need to install the native packages for GraalVM (in order to compile quarkus apps in a native way)
 
 ```
 gu install native-image

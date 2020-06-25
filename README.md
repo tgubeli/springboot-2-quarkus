@@ -216,9 +216,12 @@ curl $BASE_URL/ws/pg/balance/all
 ```
 
 2. Load Test
-You can create a more sofisticated test plan with JMeter. Jus install JMeter and open the file [springboot2quarkus.jmx](./springboot2quarkus.jmx)
 
-Then you jus need to change the base url in the HTTP Request section named "Quarkus" and "SprinBoot".
+You may want to create a more sofisticated test plan, in this case with JMeter. Just install JMeter and open the file [springboot2quarkus.jmx](./springboot2quarkus.jmx)
+
+Then you just need to change the base url in the HTTP Request section named "Quarkus" and "SprinBoot".
+
+Then execute the test plan and go to Openshift to see the realtime metrics.
 
 3. Monitoring with Openshift
 

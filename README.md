@@ -3,6 +3,29 @@ Example to demonstrate how to migrate a Springboot app to Quarkus.
 
 Then also we can test and compare both apps running over a K8s instance (like Openshift).
 
+Metrics obtained:
+<table>
+	<tr>
+		<td>App Name</td>
+		<td>Memory used (MiB)</td>
+		<td>CPU Request Peaks (millicores)</td>
+		<td>Boot time (seconds)</td>
+	</tr>
+	<tr>
+		<td>SpringBoot app</td>
+		<td>513.89</td>
+		<td>0.03597</td>
+		<td>3.454</td>
+	</tr>
+	<tr>
+		<td>Quarkus app</td>
+		<td>262.04</td>
+		<td>0.00583</td>
+		<td>0.021</td>
+	</tr>
+</table>
+
+
 
 *This code is taken from*: 
 https://developers.redhat.com/blog/2020/04/10/migrating-a-spring-boot-microservices-application-to-quarkus 

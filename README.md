@@ -183,7 +183,7 @@ oc new-app quarkus-demo/accountbalance-quarkus:latest \
 
 4. Expose the services:
 ```
-oc expose svc/springboot-2-quarkus --name=accountbalance-quarkus
+oc expose svc/accountbalance-quarkus --name=accountbalance-quarkus
 oc expose svc/accountbalance-springboot --name=accountbalance-springboot
 ```
 

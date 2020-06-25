@@ -154,6 +154,8 @@ oc import-image quay.io/quarkus/ubi-quarkus-native-s2i:20.1.0-java11 --confirm
 ```
 
 2. Deploy the SpringBoot App in Openshift
+
+```
 oc new-build --name accountbalance-springboot --binary --strategy source --image-stream java:11
 oc start-build accountbalance-springboot  --from-dir=./accountbalance
 oc new-app accountbalance-springboot \
@@ -163,8 +165,10 @@ oc new-app accountbalance-springboot \
     -e MONGODB_USER=accountbalance \
     -e MONGODB_PASSWORD=accountbalance \
     -e MONGODB_DATABASE=accountbalance
+```
 
 3. Deploy the Quarkus App (native image) in Openshift
+```
 oc new-build --name accountbalance-quarkus --binary --strategy source --image-stream=ubi-quarkus-native-s2i:20.1.0-java11
 oc start-build accountbalance-quarkus --from-dir=./accountbalance-quarkus \
 --name=accountbalance-quarkus
@@ -175,10 +179,13 @@ oc new-app quarkus-demo/accountbalance-quarkus:latest \
     -e MONGODB_USER= accountbalance \
     -e MONGODB_PASSWORD= accountbalance \
     -e MONGODB_DATABASE= accountbalance
+```
 
 4. Expose the services:
+```
 oc expose svc/springboot-2-quarkus --name=accountbalance-quarkus
 oc expose svc/accountbalance-springboot --name=accountbalance-springboot
+```
 
 5. Add some labels:
 

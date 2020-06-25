@@ -42,7 +42,7 @@ Then we need to install the native packages for GraalVM (in order to compile qua
 gu install native-image
 ```
 
-> Note: when you install GraalVM, the command/app "gu" is installed to.
+> Note: when you install GraalVM, the command/app "gu" is installed too.
 
 
 

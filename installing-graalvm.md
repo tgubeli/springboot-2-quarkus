@@ -27,13 +27,13 @@ GraalVM        | >>> | 20.1.0.r11   | grl     |            | 20.1.0.r11-grl
 Then install the 20.1.0.r11 version:
 
 ```
-sdk install java 20.1.0.r11
+sdk install java 20.1.0.r11-grl
 ```
 
 Next we need to select the GraalVM as default java version
 
 ```
-sdk use java 20.1.0.r11
+sdk use java 20.1.0.r11-grl
 ```
 
 Then we need to install the native packages for GraalVM (in order to compile quarkus apps in a native way)

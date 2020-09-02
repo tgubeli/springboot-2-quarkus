@@ -170,10 +170,9 @@ oc new-app accountbalance-springboot \
 3. Deploy the Quarkus App (native image) in Openshift
 ```
 oc new-build --name accountbalance-quarkus --binary --strategy source --image-stream=ubi-quarkus-native-s2i:20.1.0-java11
-oc start-build accountbalance-quarkus --from-dir=./accountbalance-quarkus \
---name=accountbalance-quarkus
+oc start-build accountbalance-quarkus --from-dir=./accountbalance-quarkus
 oc new-app quarkus-demo/accountbalance-quarkus:latest \
-	-p APPLICATION_NAME=accountbalance-quarkus \
+    -p APPLICATION_NAME=accountbalance-quarkus \
     -e MONGODB_SERVER_HOST= accountbalance \
     -e MONGODB_SERVER_PORT=27017 \
     -e MONGODB_USER= accountbalance \
@@ -191,13 +190,13 @@ oc expose svc/accountbalance-springboot --name=accountbalance-springboot
 
 ```
 oc label dc/accountbalance app.openshift.io/runtime=mongodb --overwrite
-oc label dc/accountbalance-springboot  app.openshift.io/runtime=spring-boot --overwrite
+oc label dc/accountbalance-springboot app.openshift.io/runtime=spring-boot --overwrite
 oc label dc/accountbalance-quarkus app.openshift.io/runtime=quarkus --overwrite
 oc annotate dc/accountbalance-springboot app.openshift.io/connects-to=accountbalance
 oc annotate dc/accountbalance-quarkus app.openshift.io/connects-to=accountbalance
-oc label dc/accountbalance-springboot app.kubernetes.io/part-of=blackjack --overwrite
-oc label dc/accountbalance app.kubernetes.io/part-of=blackjack --overwrite
-oc label dc/accountbalance-quarkus app.kubernetes.io/part-of=blackjack --overwrite
+oc label dc/accountbalance-springboot app.kubernetes.io/part-of=accountbalance --overwrite
+oc label dc/accountbalance app.kubernetes.io/part-of=accountbalance --overwrite
+oc label dc/accountbalance-quarkus app.kubernetes.io/part-of=accountbalance --overwrite
 ```
 
 Go to the Openshift's Web Console > Developer View > Topology

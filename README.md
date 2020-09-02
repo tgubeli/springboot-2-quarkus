@@ -177,26 +177,32 @@ oc new-app quarkus-demo/accountbalance-quarkus:latest \
     -e MONGODB_SERVER_PORT=27017 \
     -e MONGODB_USER= accountbalance \
     -e MONGODB_PASSWORD= accountbalance \
-    -e MONGODB_DATABASE= accountbalance
+    -e MONGODB_DATABASE= accountbalance \
+    -l app=accountbalance-quarkus \
+    -l app.kubernetes.io/component=accountbalance-quarkus \
+    -l app.kubernetes.io/instance=accountbalance-quarkus
 ```
 
 4. Expose the services:
 ```
-oc expose svc/accountbalance-quarkus --name=accountbalance-quarkus
+oc expose svc/springboot-2-quarkus --name=accountbalance-quarkus
 oc expose svc/accountbalance-springboot --name=accountbalance-springboot
 ```
 
 5. Add some labels:
 
 ```
+oc label dc/accountbalance app.kubernetes.io/name=accountbalance-db
+oc label dc/accountbalance-springboot app.kubernetes.io/name=springboot-app
+oc label dc/springboot-2-quarkus app.kubernetes.io/name=quarkus-app
 oc label dc/accountbalance app.openshift.io/runtime=mongodb --overwrite
 oc label dc/accountbalance-springboot app.openshift.io/runtime=spring-boot --overwrite
-oc label dc/accountbalance-quarkus app.openshift.io/runtime=quarkus --overwrite
+oc label dc/springboot-2-quarkus app.openshift.io/runtime=quarkus --overwrite
 oc annotate dc/accountbalance-springboot app.openshift.io/connects-to=accountbalance
-oc annotate dc/accountbalance-quarkus app.openshift.io/connects-to=accountbalance
+oc annotate dc/springboot-2-quarkus app.openshift.io/connects-to=accountbalance
 oc label dc/accountbalance-springboot app.kubernetes.io/part-of=accountbalance --overwrite
 oc label dc/accountbalance app.kubernetes.io/part-of=accountbalance --overwrite
-oc label dc/accountbalance-quarkus app.kubernetes.io/part-of=accountbalance --overwrite
+oc label dc/springboot-2-quarkus app.kubernetes.io/part-of=accountbalance --overwrite
 ```
 
 Go to the Openshift's Web Console > Developer View > Topology

@@ -66,7 +66,7 @@ accountbalance-1-zhfmk    1/1     Running     0          78s
 Now we know the pod's name so we can make the port forwarding. MongoDB is exposed with the port 27017 so we are going to forward the same port locally:
 
 ```
-oc port-forward creditresponse-1-jtgxh 27017:27017
+oc port-forward accountbalance-1-zhfmk 27017:27017
 ```
 
 Now we are ready to deploy aour apps locally.

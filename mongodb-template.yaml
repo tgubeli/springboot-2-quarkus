@@ -53,7 +53,7 @@ objects:
             value: ${MONGODB_ADMIN_USER}  
           - name: MONGODB_DATABASE
             value: ${MONGODB_DATABASE}
-          image: rhscl/mongodb-32-rhel7
+          image: rhscl/mongodb-34-rhel7
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3

@@ -156,7 +156,7 @@ parameters:
 - description: Mongodb Version
   displayName: Mongodb Version
   name: MONGODB_VERSION
-  value: "3.2"
+  value: "latest"
   required: true
 - description: Mongodb Volume Capacity
   displayName: Mongodb Volume Capacity
